@@ -17,20 +17,35 @@ public class LogoGen {
                 + "    .unreq fbInfoAddr\r\n" + "\r\n" + "\r\n" + "    mov r0,#0b0000011111100000 //green\r\n"
                 + "    bl SetForeColor\r\n" + "    ldr r0,=960\r\n" + "    ldr r1,=540\r\n" + "    bl DrawPixel\r\n"
                 + "\r\n" + "    //everything below is generated");
-        sleep(7000);
-        setColor(HighColor.GREEN);
-        drawLine(0, 0, 1919, 1079);
-        setColor(HighColor.BLUE);
-        drawLine(1919, 0, 0, 1079);
-        setColor(HighColor.RED);
+        sleep(6000);
 
-        LineChain zigZag = new LineChain(0, 540);
-        for (int i = 1; i < 19; i++) {
-            zigZag.to(Math.min(1919, 101 * i), 540 + randomRange(-50, 50));
+        for (int i = 0; i < 3; i++) {
+            ZigZag zigZag = new ZigZag(0, 540, 1919, 540, 25, 60);
+            setColor(HighColor.getRandomColor(1, 64, 1));
+            zigZag(zigZag);
+            zigZag = new ZigZag(1919, 540, 0, 540, 25, 60);
+            setColor(HighColor.getRandomColor(1, 64, 1));
+            zigZag(zigZag);
         }
-        lineChain(zigZag);
 
-        sleep(1000);
+        int offsX = -65;
+        int offsY = 60;
+        setColor(HighColor.RED);
+        letter('U', 960 + offsX, 540 + offsY);
+        sleep(100);
+        setColor(HighColor.GREEN);
+        letter('W', 976 + offsX, 540 + offsY);
+        letter('O', 976 + 16 + offsX, 540 + offsY);
+        letter('T', 976 + 32 + offsX, 540 + offsY);
+        sleep(100);
+        setColor(HighColor.BLUE);
+        letter('m', 976 + 32 + 16 + offsX, 540 + offsY);
+        letter('8', 976 + 64 + offsX, 540 + offsY);
+        sleep(750);
+        setColor(HighColor.WHITE);
+        letter('?', 976 + 64 + 16 + offsX, 540 + offsY);
+
+        sleep(500);
         custom("pop {pc}");
         dumpCommands();
     }
@@ -65,11 +80,16 @@ public class LogoGen {
         commands.add(chain);
     }
 
+    public void zigZag(ZigZag zigZag) {
+        commands.add(zigZag);
+    }
+
     public void custom(String cmd) {
         commands.add(new CustomCommand(cmd));
     }
 
-    public int randomRange(int min, int max) {
-        return random.nextInt(max - min + 1) + min;
+    public void letter(char character, int x, int y) {
+        commands.add(new Text(character, x, y));
     }
+
 }
