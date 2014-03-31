@@ -23,29 +23,39 @@ public class LogoGen {
             ZigZag zigZag = new ZigZag(0, 540, 1919, 540, 25, 60);
             setColor(HighColor.getRandomColor(1, 64, 1));
             zigZag(zigZag);
+            sleep(175);
             zigZag = new ZigZag(1919, 540, 0, 540, 25, 60);
             setColor(HighColor.getRandomColor(1, 64, 1));
             zigZag(zigZag);
+            sleep(175);
         }
 
         int offsX = -65;
-        int offsY = 60;
+        int offsY = 110;
         setColor(HighColor.RED);
         letter('U', 960 + offsX, 540 + offsY);
-        sleep(100);
+        sleep(250);
         setColor(HighColor.GREEN);
         letter('W', 976 + offsX, 540 + offsY);
         letter('O', 976 + 16 + offsX, 540 + offsY);
         letter('T', 976 + 32 + offsX, 540 + offsY);
-        sleep(100);
+        sleep(250);
         setColor(HighColor.BLUE);
         letter('m', 976 + 32 + 16 + offsX, 540 + offsY);
         letter('8', 976 + 64 + offsX, 540 + offsY);
-        sleep(750);
+        sleep(250);
         setColor(HighColor.WHITE);
         letter('?', 976 + 64 + 16 + offsX, 540 + offsY);
 
-        sleep(500);
+        int width = 1920 / 12;
+        for (int i = 1; i <= 12; i++) {
+            setColor(new HighColor(0, (int) Utils.lerp(0f, 63f, i / 12f), 0));
+            drawLine((i - 1) * width, 712, i * width, 712);
+            drawLine((i - 1) * width, 713, i * width, 713);
+            //            drawLine((i - 1) * width, 714, i * width, 714);
+            sleep(300);
+        }
+
         custom("pop {pc}");
         dumpCommands();
     }

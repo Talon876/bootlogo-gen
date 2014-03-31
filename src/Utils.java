@@ -21,4 +21,13 @@ public class Utils {
         }
         return value;
     }
+
+    public static float lerp(float value1, float value2, float amount) {
+        if (value1 == value2) {
+            return value2;
+        } else {
+            float result = value1 + (value2 - value1) * amount;
+            return result;
+        }
+    }
 }
