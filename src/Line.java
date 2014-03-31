@@ -17,7 +17,7 @@ public class Line implements ICodeGenerator {
         code.append(Utils.setArgument("r1", y0));
         code.append(Utils.setArgument("r2", x1));
         code.append(Utils.setArgument("r3", y1));
-        code.append("bl DrawLine");
+        code.append("bl DrawLineAnimated");
         code.append("\n");
         return code.toString();
     }

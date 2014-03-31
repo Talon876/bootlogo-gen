@@ -53,7 +53,7 @@ public class LogoGen {
             drawLine((i - 1) * width, 712, i * width, 712);
             drawLine((i - 1) * width, 713, i * width, 713);
             //            drawLine((i - 1) * width, 714, i * width, 714);
-            sleep(300);
+            //sleep(300);
         }
 
         custom("pop {pc}");
